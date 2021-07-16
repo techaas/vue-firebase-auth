@@ -30,7 +30,6 @@ export default {
       if (user) {
         // ログインしていれば中通る
         this.user = user;
-        console.log('user', user); // ユーザー情報が表示される
       }
     });
   },
