@@ -4,7 +4,7 @@
 
 <template>
   <div class="signin">
-    <form>
+    <form @submit.prevent="onSignIn">
       <div class="input-row">
         <label>メールアドレス：</label>
         <input id="email" type="email" v-model="mailaddress" />
@@ -13,9 +13,9 @@
         <label>パスワード：</label>
         <input id="password" type="password" v-model="password" />
       </div>
+      <button type="button" class="btn" @click.prevent.self="onClear">クリア</button>
+      <button type="submit" class="btn">ログイン</button>
     </form>
-    <button class="btn" @click="onClear">クリア</button>
-    <button class="btn" @click="onSignIn">ログイン</button>
     <div class="message">{{ message }}</div>
   </div>
 </template>
@@ -38,6 +38,7 @@ export default {
     onClear: function() {
       this.mailaddress = '';
       this.password = '';
+      this.message = '';
     },
     onSignIn: function () {
       this.message = '';

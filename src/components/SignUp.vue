@@ -4,7 +4,7 @@
 
 <template>
   <div class="signup">
-    <form>
+    <form @submit.prevent="onSignUp">
       <div class="input-row">
         <label>メールアドレス：</label>
         <input id="email" type="email" v-model="mailaddress" />
@@ -13,9 +13,9 @@
         <label>パスワード：</label>
         <input id="password" type="password" v-model="password" />
       </div>
+      <button type="button" class="btn" @click.prevent.self="onClear">クリア</button>
+      <button type="submit" class="btn">登録</button>
     </form>
-    <button class="btn" @click="onClear">クリア</button>
-    <button class="btn" @click="signUp">登録</button>
     <div class="message">{{ message }}</div>
   </div>
 </template>
@@ -36,10 +36,12 @@ export default {
   },
   methods: {
     onClear: function() {
+      console.log('onClear');
       this.mailaddress = '';
       this.password = '';
+      this.message = '';
     },
-    signUp: function () {
+    onSignUp: function () {
       this.message = '';
       let auth = firebase.auth();
       auth.useDeviceLanguage();
