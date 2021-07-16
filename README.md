@@ -1,5 +1,7 @@
 # vue-firebase-auth
 
+[https://www.techaas.net/post/firebase-auth/](https://www.techaas.net/post/firebase-auth/) で中身を解説しています.
+
 ## Project setup
 ```
 npm install
