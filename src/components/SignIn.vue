@@ -16,6 +16,11 @@
       <button type="button" class="btn" @click.prevent.self="onClear">クリア</button>
       <button type="submit" class="btn">ログイン</button>
     </form>
+      <div id="or">--- OR ---</div>
+      <div id="other">
+        <img class="loginGoogle" src="../assets/btn_google_signin_dark_normal_web.png" @click="onLoginGoogle"/>
+        <img class="loginGithub" src="../assets/btn_github_signin.png" @click="onLoginGithub"/>
+      </div>
     <div class="message">{{ message }}</div>
   </div>
 </template>
@@ -58,6 +63,40 @@ export default {
           this.message = firebaseErrors[err.code] || err.message;
         });
     },
+    onLoginGoogle: function() {
+      console.log("onLoginGoogle");
+      var provider = new firebase.auth.GoogleAuthProvider();
+      let auth = firebase.auth();
+      auth.useDeviceLanguage();
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          console.log("signin with google success", result);
+          if (!alert('ログインしました')) {
+            this.$router.push('/');
+          }
+        }).catch((err) => {
+          // エラー時の処理
+          console.log(err);
+          this.message = firebaseErrors[err.code] || err.message;
+        });
+    },
+    onLoginGithub: function() {
+      console.log("onLoginGithub");
+      var provider = new firebase.auth.GithubAuthProvider();
+      let auth = firebase.auth();
+      auth.useDeviceLanguage();
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          console.log("signin with github success", result);
+          if (!alert('ログインしました')) {
+            this.$router.push('/');
+          }
+        }).catch((err) => {
+          // エラー時の処理
+          console.log(err);
+          this.message = firebaseErrors[err.code] || err.message;
+        });
+    },
   },
 };
 </script>
@@ -84,5 +123,29 @@ label{
 }
 input {
   display: inline-block;
+}
+
+#or {
+  margin-top: 20px;
+}
+#other {
+  margin-top: 20px;
+}
+.loginGoogle:hover {
+   background-image: url("../assets/btn_google_signin_dark_focus_web.png");
+}
+.loginGoogle:active {
+   background-image: url("../assets/btn_google_signin_dark_pressed_web.png");
+}
+.loginGoogle {
+  margin-left: auto;
+  margin-right: auto;
+  width: 220px;
+}
+.loginGithub {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 220px;
 }
 </style>
